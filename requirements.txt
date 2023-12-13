@@ -1,0 +1,14 @@
+utils
+ipython
+ipykernel
+ipywidgets
+
+pytest
+mkdocs
+mkdocs-material
+
+torch
+diffusers
+transformers
+scipy
+accelerate
