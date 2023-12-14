@@ -17,3 +17,6 @@ llama-index
 llama-cpp-python
 sentence-transformers
 langchain
+ctransformers
+
+gradio
