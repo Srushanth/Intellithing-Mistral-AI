@@ -8,15 +8,9 @@ mkdocs
 mkdocs-material
 
 torch
-diffusers
 transformers
 scipy
 accelerate
-pypdf 
-llama-index
-llama-cpp-python
-sentence-transformers
-langchain
 ctransformers
 
 gradio
