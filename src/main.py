@@ -27,7 +27,7 @@ llm = AutoModelForCausalLM.from_pretrained(model_path_or_repo_id=os.path.abspath
 
 
 
-def generate_chat_prompt(message: str, chat_history: list) -> str:
+def generate_chat_prompt(message: str, chat_history: list, single_shot: bool = True) -> str:
     """
     Generates a chat prompt by iterating over the chat history and appending the new message.
 
@@ -35,23 +35,27 @@ def generate_chat_prompt(message: str, chat_history: list) -> str:
         message (str): The new message to be appended to the chat history.
         chat_history (list): The chat history as a list of tuples,
         where each tuple contains a pair of strings representing a message and its response.
+        single_shot (bool): If True, holds on to the chat history.
 
     Returns:
         str: The generated chat prompt as a string.
     """
-    # Initialize an empty string for the prompt
-    prompt = ""
+    if not single_shot:
+        # Initialize an empty string for the prompt
+        prompt = ""
 
-    # Iterate over the chat history
-    for inst, resp in chat_history:
-        # For each pair in the history, append the instruction and response to the prompt
-        prompt += f"[INST] {inst} [/INST]\n{resp}\n"
+        # Iterate over the chat history
+        for inst, resp in chat_history:
+            # For each pair in the history, append the instruction and response to the prompt
+            prompt += f"[INST] {inst} [/INST]\n{resp}\n"
 
-    # Append the new message to the prompt
-    prompt += f"[INST] {message} [/INST]"
+        # Append the new message to the prompt
+        prompt += f"[INST] {message} [/INST]"
 
-    # Return the final prompt
-    return prompt
+        # Return the final prompt
+        return prompt
+    else:
+        return f"[INST] {message} [/INST]"
 
 
 def generate_bot_response(message: str, chat_history: list) -> tuple:
@@ -68,10 +72,11 @@ def generate_bot_response(message: str, chat_history: list) -> tuple:
         tuple: A tuple containing an empty string and the updated chat history.
     """
     # Generate a chat prompt using the message and chat history
-    generated_prompt = generate_chat_prompt(message=message, chat_history=chat_history)
+    generated_prompt = generate_chat_prompt(message=message, chat_history=chat_history, single_shot=True)
 
     # Get the bots message by passing the generated prompt to the language model
     bot_message = llm(generated_prompt)
+        
 
     # Append the message and bots response to the chat history
     chat_history.append((message, bot_message))
@@ -81,13 +86,19 @@ def generate_bot_response(message: str, chat_history: list) -> tuple:
 
 
 # Create a Gradio interface with a chatbot, a textbox, and a clear button
-with gr.Blocks() as demo:
+with gr.Blocks(theme=gr.themes.Default(spacing_size=gr.themes.sizes.spacing_sm, 
+                                       # radius_size=gr.themes.sizes.radius_none, 
+                                       font=[gr.themes.GoogleFont("Inconsolata"), "Arial", "sans-serif"])) as demo:
     chatbot = gr.Chatbot()
     msg = gr.Textbox()
     _clear = gr.ClearButton([msg, chatbot])
+    submit_button = gr.Button("Submit")
 
     # Set the textbox to submit the 'generate_bot_response' function upon submission
     msg.submit(generate_bot_response, [msg, chatbot], [msg, chatbot])
+    submit_button.click(fn=generate_bot_response, 
+                        inputs=[msg, chatbot], 
+                        outputs=[msg, chatbot])
 
 # Launch the Gradio demo
 
