@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sampleapp
+  labels:
+    name: sampleapp
+spec:
+  containers:
+  - name: sampleapp
+    image: 926015110176.dkr.ecr.eu-north-1.amazonaws.com/intellithing:latest
+    ports:
+      - containerPort: 7860

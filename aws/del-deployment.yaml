@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mistral-app
+  labels:
+    name: mistral-ws
+spec:
+  containers:
+  - name: mistral-container
+    image: 926015110176.dkr.ecr.eu-north-1.amazonaws.com/intellithing:prod
+    ports:
+      - containerPort: 8080

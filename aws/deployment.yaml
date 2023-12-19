@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapp-deployment
+  labels:
+    app: sampleapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sampleapp
+  template:
+    metadata:
+      labels:
+        app: sampleapp
+    spec:
+      containers:
+      - name: sampleapp
+        image: 926015110176.dkr.ecr.eu-north-1.amazonaws.com/intellithing:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 7860

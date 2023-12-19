@@ -4,11 +4,6 @@ FROM python:3.11
 # The maintainer of the Dockerfile
 LABEL authors="Srush"
 
-# The port on which the Gradio server will run
-ARG GRADIO_SERVER_PORT=7860
-# Set the environment variable in the container
-ENV GRADIO_SERVER_PORT=${GRADIO_SERVER_PORT}
-
 # Set the working directory in the container to /workspace
 WORKDIR /workspace
 
@@ -23,7 +18,7 @@ COPY ["./src/*", "./src/"]
 RUN pip install -r requirements.txt
 
 # Make port 8080 available to the world outside this container
-EXPOSE ${GRADIO_SERVER_PORT}
+EXPOSE 8080
 
 # Run main.py when the container launches
-CMD ["python", "./src/main.py"]
+ENTRYPOINT ["python", "./src/main.py"]

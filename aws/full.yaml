@@ -4,30 +4,6 @@ kind: Namespace
 metadata:
   name: mistral-ai
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  namespace: mistral-ai
-  name: deployment-mistral-ai
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: app-mistral-ai
-  replicas: 5
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: app-mistral-ai
-    spec:
-      containers:
-      - image: 926015110176.dkr.ecr.eu-north-1.amazonaws.com/intellithing:latest
-        imagePullPolicy: Always
-        name: app-mistral-ai
-        ports:
-        - containerPort: 7860
-      imagePullSecrets:
-        - name: regcred
----
 apiVersion: v1
 kind: Service
 metadata:
