@@ -1,6 +1,6 @@
-data
-model_original
-model_gguf
+data/
+model_original/
+model_gguf/
 .idea
 
 # Byte-compiled / optimized / DLL files
