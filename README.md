@@ -38,4 +38,13 @@
 
 
 
+<<<<<<< HEAD
 aws --region eu-north-1 ecr get-login-password | docker login --username AWS --password-stdin 926015110176.dkr.ecr.eu-north-1.amazonaws.com
+=======
+
+## Model Download
+curl -L https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q5_K_M.gguf --output mistral-7b-instruct-v0.1.Q5_K_M.gguf
+
+## Authenticate for pushing the Docker image to AWS ECR
+aws ecr get-login-password | docker login --username AWS --password-stdin 926015110176.dkr.ecr.eu-north-1.amazonaws.com
+>>>>>>> 842c248a1b7e40e83dd985abfae1c1dd5ccd19fc

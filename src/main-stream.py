@@ -2,14 +2,15 @@ import os
 import gradio as gr
 from ctransformers import AutoModelForCausalLM
 from ctransformers import AutoConfig
+from httpcore import stream
 
 import torch
 print("*"*50)
-print(os.path.abspath("./model_gguf"))
+print(os.path.abspath("./"))
 print("*"*50)
 
 
-config = AutoConfig.from_pretrained(os.path.abspath("./model_gguf/mistral-7b-instruct-v0.1.Q5_K_M.gguf"))
+config = AutoConfig.from_pretrained(os.path.abspath("../model_gguf/mistral-7b-instruct-v0.1.Q5_K_M.gguf"))
 # Explicitly set the max_seq_len
 config.config.max_new_tokens = 2048
 config.config.context_length = 4096
@@ -19,7 +20,7 @@ gpu_layers = 50 if torch.cuda.is_available() else 0
 
 
 # Initialize the language model with the specified model path, file, and type
-llm = AutoModelForCausalLM.from_pretrained(model_path_or_repo_id=os.path.abspath("./model_gguf/"),
+llm = AutoModelForCausalLM.from_pretrained(model_path_or_repo_id=os.path.abspath("../model_gguf/"),
                                            model_file="mistral-7b-instruct-v0.1.Q5_K_M.gguf",
                                            model_type="mistral",
                                            gpu_layers=100,
@@ -75,11 +76,18 @@ def generate_bot_response(message: str, chat_history: list) -> tuple:
     generated_prompt = generate_chat_prompt(message=message, chat_history=chat_history, single_shot=True)
 
     # Get the bots message by passing the generated prompt to the language model
-    bot_message = llm(generated_prompt)
-        
+    # Use the stream method to get the output as a generator
+    bot_message = llm.stream(generated_prompt)
+    
+    # Initialize an empty string for the final response
+    final_response = ""
+
+    # Iterate over the generator and append each token to the final response
+    for token in bot_message:
+        final_response += token
 
     # Append the message and bots response to the chat history
-    chat_history.append((message, bot_message))
+    chat_history.append((message, final_response))
 
     # Return an empty string and the updated chat history
     return "", chat_history
@@ -96,13 +104,11 @@ with gr.Blocks(theme=gr.themes.Default(spacing_size=gr.themes.sizes.spacing_sm,
 
     # Set the textbox to submit the 'generate_bot_response' function upon submission
     msg.submit(generate_bot_response, [msg, chatbot], [msg, chatbot])
-    submit_button.click(fn=generate_bot_response, 
-                        inputs=[msg, chatbot], 
-                        outputs=[msg, chatbot])
+    submit_button.click(fn=generate_bot_response, inputs=[msg, chatbot], outputs=[msg, chatbot])
+
 
 # Launch the Gradio demo
 
 
 if __name__ == "__main__":
     demo.queue(max_size=1024)
-    demo.launch(server_name="0.0.0.0", server_port=8080, max_threads=2048)
