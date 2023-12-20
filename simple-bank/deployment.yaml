@@ -5,7 +5,7 @@ metadata:
   labels:
     app: simple-bank-api
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
       app: simple-bank-api
@@ -23,5 +23,6 @@ spec:
           - "nvidia-smi"
           resources:
             limits:
+              memory: 8192Mi
               nvidia.com/gpu: 1
     
