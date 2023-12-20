@@ -35,3 +35,7 @@
 - kubectl get deployment -n kube-system aws-load-balancer-controller
 - kubectl get pods -n kube-system
 - kubectl get ingress -n game-2048
+
+
+
+aws --region eu-north-1 ecr get-login-password | docker login --username AWS --password-stdin 926015110176.dkr.ecr.eu-north-1.amazonaws.com
