@@ -1,1 +1,4 @@
-site_name: My Docs
+site_name: Intellithing - Mistral AI Instruction model
+nav:
+  - Home: "index.md"
+  - Project Setup: "Project-Setup.md"
