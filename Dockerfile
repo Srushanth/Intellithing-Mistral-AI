@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.11
+FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
 
 # The maintainer of the Dockerfile
 LABEL authors="Srush"
@@ -21,4 +21,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8080
 
 # Run main.py when the container launches
-ENTRYPOINT ["python", "./src/main.py"]
+CMD ["python", "./src/streamer.py"]
