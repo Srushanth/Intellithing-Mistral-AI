@@ -1,5 +1,6 @@
 # Use an official Python runtime as a parent image
-FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
+# FROM pytorch/pytorch:2.1.2-cuda12.1-cudnn8-runtime
+FROM python:3.11
 
 # The maintainer of the Dockerfile
 LABEL authors="Srush"
