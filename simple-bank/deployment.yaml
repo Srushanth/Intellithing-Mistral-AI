@@ -16,13 +16,12 @@ spec:
     spec:
       containers:
         - name: simple-bank-api
-          image: 926015110176.dkr.ecr.eu-north-1.amazonaws.com/intellithing@sha256:041d62ead7f456ae57293b8a1ef8024ea59ca8b6e83c3f656430ffb173cbfb6b
+          image: 926015110176.dkr.ecr.eu-north-1.amazonaws.com/intellithing:latest
           ports:
             - containerPort: 8080
           args:
           - "nvidia-smi"
           resources:
             limits:
-              memory: 8192Mi
               nvidia.com/gpu: 1
     
