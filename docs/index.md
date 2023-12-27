@@ -66,3 +66,4 @@ The *__Mistral AI model__* is a *__large language model with 7 billion parameter
 1. Wait for the reviewer to review your code and provide feedback. If there are any issues or suggestions, make the necessary changes and push them to the branch. 🔄
 1. Once the reviewer approves your pull request, merge it to the master branch. 🎉
 
+This is a maths equation $$f(x) = 4y + 5$$
