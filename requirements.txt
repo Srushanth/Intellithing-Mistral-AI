@@ -1,20 +1,41 @@
+# Notebook
 utils
 ipython
 ipykernel
 ipywidgets
 
-pytest
+# Documenatation
 mkdocs
 mkdocstrings[python]
 mkdocs-material
 mkdocs-macros-plugin
 
-torch
+# Utils
+black
+pylint
+
+# Testing
+pytest
+
+# System
+python-dotenv
+
+# HuggingFace
+datasets
 transformers
-scipy
+huggingface_hub
+
+# Machine Learning
+torch
 accelerate
+transformers
 ctransformers
 
-gradio
+# Data
 numpy
+scipy
+pandas
+tabulate
 
+# UI
+gradio

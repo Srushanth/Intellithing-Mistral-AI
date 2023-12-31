@@ -28,10 +28,14 @@ repo_url: https://github.com/Srushanth/Intellithing-Mistral-AI
 # Connect with me.
 extra:
   social:
-    - icon: fontawesome/brands/github-alt
+    - icon: fontawesome/brands/square-github
       link: https://github.com/Srushanth/
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/srushanth-baride/
+    - icon: fontawesome/brands/kaggle
+      link: https://www.kaggle.com/srushanthbaride2010
+    - icon: fontawesome/brands/google
+      link: https://g.dev/SrushanthBaride
 
 extra_javascript:
   - javascripts/mathjax.js
