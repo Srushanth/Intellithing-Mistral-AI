@@ -16,6 +16,7 @@ config.config.context_length = 4096
 
 # Check if GPU acceleration is available and set the number of layers to offload to GPU accordingly
 gpu_layers = 50 if torch.cuda.is_available() else 0
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 # Initialize the language model with the specified model path, file, and type
@@ -24,6 +25,8 @@ llm = AutoModelForCausalLM.from_pretrained(model_path_or_repo_id=os.path.abspath
                                            model_type="mistral",
                                            gpu_layers=100,
                                            config=config)
+
+llm = llm.to(device)
 
 
 
