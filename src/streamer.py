@@ -15,7 +15,7 @@ config.config.max_new_tokens = 2048
 config.config.context_length = 4096
 
 # Check if GPU acceleration is available and set the number of layers to offload to GPU accordingly
-gpu_layers = 50 if torch.cuda.is_available() else 0
+GPU_LAYERS = 150 if torch.cuda.is_available() else 0
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -23,10 +23,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 llm = AutoModelForCausalLM.from_pretrained(model_path_or_repo_id=os.path.abspath("./model_gguf/"),
                                            model_file="mistral-7b-instruct-v0.1.Q5_K_M.gguf",
                                            model_type="mistral",
-                                           gpu_layers=100,
+                                           gpu_layers=GPU_LAYERS,
                                            config=config)
-
-llm = llm.to(device)
 
 
 

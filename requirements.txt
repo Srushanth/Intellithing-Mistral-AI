@@ -29,7 +29,7 @@ huggingface_hub
 torch
 accelerate
 transformers
-ctransformers
+ctransformers[cuda]
 
 # Data
 numpy
