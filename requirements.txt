@@ -11,6 +11,7 @@ mkdocs-material
 mkdocs-macros-plugin
 
 # Utils
+emoji 
 black
 pylint
 

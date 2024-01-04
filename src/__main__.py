@@ -1,35 +1,57 @@
+"""
+Author: Srushanth Baride
+Email: Srushanth.Baride"gmail.com
+Organization: Intellithing
+Date: 13-Dec-2023
+Description: A brief description of what the code does.
+"""
+
+
 import os
-import gradio as gr
-from ctransformers import AutoModelForCausalLM
-from ctransformers import AutoConfig
-
 import torch
+import logging
+import gradio as gr
+from emoji import emojize
+from dotenv import load_dotenv
+from ctransformers import AutoModelForCausalLM, AutoConfig
 
-print("*" * 50)
-print(os.path.abspath("./model_gguf"))
-print("*" * 50)
+
+# Load variables from .env file
+load_dotenv()
+
+# Define constants
+MODEL_PATH = os.path.abspath(os.getenv("MODEL_PATH"))
+MODEL_FILE = os.getenv("MODEL_FILE")
+MODEL_TYPE = os.getenv("MODEL_TYPE")
+MAX_NEW_TOKENS = int(os.getenv("MAX_NEW_TOKENS"))
+CONTEXT_LENGTH = int(os.getenv("CONTEXT_LENGTH"))
 
 
-config = AutoConfig.from_pretrained(
-    os.path.abspath("./model_gguf/mistral-7b-instruct-v0.1.Q5_K_M.gguf")
-)
-# Explicitly set the max_seq_len
-config.config.max_new_tokens = 2048
-config.config.context_length = 4096
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO
+)  # Change to logging.ERROR to disable print statements
+
 
 # Check if GPU acceleration is available and set the number of layers to offload to GPU accordingly
 GPU_LAYERS = 150 if torch.cuda.is_available() else 0
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-# Initialize the language model with the specified model path, file, and type
-llm = AutoModelForCausalLM.from_pretrained(
-    model_path_or_repo_id=os.path.abspath("./model_gguf/"),
-    model_file="mistral-7b-instruct-v0.1.Q5_K_M.gguf",
-    model_type="mistral",
-    gpu_layers=GPU_LAYERS,
-    config=config,
-)
+def initialize_model():
+    """Initialize the language model with the specified model path, file, and type."""
+    logging.info("Initializing model...")
+    config = AutoConfig.from_pretrained(os.path.join(MODEL_PATH, MODEL_FILE))
+    # Explicitly set the max_seq_len
+    config.config.max_new_tokens = MAX_NEW_TOKENS
+    config.config.context_length = CONTEXT_LENGTH
+
+    return AutoModelForCausalLM.from_pretrained(
+        model_path_or_repo_id=MODEL_PATH,
+        model_file=MODEL_FILE,
+        model_type=MODEL_TYPE,
+        gpu_layers=GPU_LAYERS,
+        config=config,
+    )
 
 
 def generate_chat_prompt(
@@ -110,26 +132,42 @@ def set_user_response(message: str, chat_history: list) -> tuple:
     return message, chat_history
 
 
-# Create a Gradio interface with a chatbot, a textbox, and a clear button
-with gr.Blocks(
-    theme=gr.themes.Default(
-        spacing_size=gr.themes.sizes.spacing_sm,
-        # radius_size=gr.themes.sizes.radius_none,
-        font=[gr.themes.GoogleFont("Inconsolata"), "Arial", "sans-serif"],
-    )
-) as demo:
-    chatbot = gr.components.Chatbot(label="Mistral AI")
-    msg = gr.components.Textbox(label="User query")
-    clear = gr.components.ClearButton([msg, chatbot])
+def launch_gradio():
+    """
+    Create a Gradio interface with a chatbot, a textbox, and a clear button and launch the Gradio demo. 🚀
+    """
+    # Create a Gradio interface with a specific theme 🎨
+    with gr.Blocks(
+        theme=gr.themes.Default(
+            spacing_size=gr.themes.sizes.spacing_sm,
+            font=[gr.themes.GoogleFont("Inconsolata"), "Arial", "sans-serif"],
+        )
+    ) as demo:
+        # Initialize the chatbot, textbox, and clear button components 🧩
+        chatbot = gr.components.Chatbot(
+            label=emojize(":robot: Intellithing's Mistral AI Chatbot")
+        )
+        msg = gr.components.Textbox(
+            label=emojize(":speech_balloon: Enter Your Query to Intellithing's Chatbot")
+        )
+        clear = gr.components.ClearButton([msg, chatbot])
 
-    # Set the textbox to submit the 'generate_bot_response' function upon submission
-    msg.submit(set_user_response, [msg, chatbot], [msg, chatbot], queue=False).then(
-        generate_bot_response, [msg, chatbot], [msg, chatbot]
-    )
-    clear.click(lambda: None, None, chatbot, queue=False)
+        # Set the textbox to submit the 'set_user_response' function upon submission
+        # Then, generate the bot response 🔄
+        msg.submit(set_user_response, [msg, chatbot], [msg, chatbot], queue=False).then(
+            generate_bot_response, [msg, chatbot], [msg, chatbot]
+        )
+        # Clear the chatbot and textbox when the clear button is clicked ❌
+        clear.click(lambda: None, None, chatbot, queue=False)
 
-
-# Launch the Gradio demo
-if __name__ == "__main__":
-    demo.queue(max_size=1024)
+    # Set the maximum size of the queue 📏
+    demo.queue(max_size=4 * 1024)
+    # Launch the Gradio demo with specific server settings 🌐
     demo.launch(server_name="0.0.0.0", server_port=8080, max_threads=2048)
+
+
+if __name__ == "__main__":
+    # Initialize the language model 🧠
+    llm = initialize_model()
+    # Launch the Gradio interface 🚀
+    launch_gradio()
