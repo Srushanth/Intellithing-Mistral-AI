@@ -4,7 +4,7 @@
 ---
 This project aims to deploy a [Mistral AI model](https://huggingface.co/mistralai) from [Hugging Face](https://huggingface.co/docs/transformers/main/model_doc/mistral) in an [Amazon Elastic Kubernetes Service (EKS)](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html) environment, create an API for it, and use the API in a [Gradio](https://www.gradio.app/) interface to test the model interactively. The project also requires the solution to have minimal standby servers and scale automatically as the requests or load increases. The project was assigned on *__11-Dec-2023__*.
 
-The *__Mistral AI model__* is a *__large language model with 7 billion parameters__* that can generate text for various tasks. The EKS environment is a managed service that simplifies the deployment and management of Kubernetes clusters on AWS. The Gradio interface is a web-based GUI that allows users to interact with the model easily. The project uses various AWS services and tools, such as `VSCode`, `AWS CLI`, `EKS`, `ECS`, `EC2`, `VPC`, `IAM`, `K9S`, `eksctl`, and `Terraform` to create and configure the resources needed for the project.
+The *__Mistral AI model__* is a *__large language model with 7 billion parameters__* that can generate text for various tasks. The EKS environment is a managed service that simplifies the deployment and management of Kubernetes clusters on AWS. The Gradio interface is a web-based GUI that allows users to interact with the model easily. The project uses various AWS services and tools, such as `VSCode`, `AWS CLI`, `EKS`, `ECS`, `EC2`, `VPC`, `IAM`, `k9s`, `eksctl`, and `Terraform` to create and configure the resources needed for the project.
 
 ## Project Structure 🗂
 ---
@@ -24,11 +24,11 @@ The *__Mistral AI model__* is a *__large language model with 7 billion parameter
 │   ├── mygame-svc.yaml
 │   ├── sample.yml
 │   └── service.yaml
-├── data
-│   └── raw
-│       └── Aurelien-Geron-Hands-On-Machine-Learning-with-Scikit-Learn-Keras-and-Tensorflow_-Concepts-Tools-and-Techniques-to-Build-Intelligent-Systems-OReilly-Media-2019.pdf
 ├── docs
-│   ├── Introduction.md
+│   ├── Project-Setup.md
+│   ├── images
+│   │   ├── vscode.png
+│   │   └── vscode.svg
 │   └── index.md
 ├── mkdocs.yml
 ├── model_gguf
@@ -66,3 +66,4 @@ The *__Mistral AI model__* is a *__large language model with 7 billion parameter
 1. Wait for the reviewer to review your code and provide feedback. If there are any issues or suggestions, make the necessary changes and push them to the branch. 🔄
 1. Once the reviewer approves your pull request, merge it to the master branch. 🎉
 
+This is a maths equation $$f(x) = 4y + 5$$

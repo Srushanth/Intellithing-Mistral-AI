@@ -61,6 +61,7 @@ aws configure
 aws ecr get-login-password | docker login --username AWS --password-stdin 926015110176.dkr.ecr.eu-north-1.amazonaws.com
 ```
 
-aws --region eu-north-1 ecr get-login-password | docker login --username AWS --password-stdin 926015110176.dkr.ecr.eu-north-1.amazonaws.com
+> [!NOTE]
+> aws --region eu-north-1 ecr get-login-password | docker login --username AWS --password-stdin 926015110176.dkr.ecr.eu-north-1.amazonaws.com
 
 aws eks --region eu-north-1 update-kubeconfig --name simple-bank

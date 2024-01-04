@@ -1,4 +1,10 @@
 {
     "python.analysis.autoImportCompletions": true,
-    "jupyter.interactiveWindow.textEditor.executeSelection": true
+    "jupyter.interactiveWindow.textEditor.executeSelection": true,
+    "cSpell.words": [
+        "ctransformers",
+        "gguf",
+        "Gradio",
+        "Inconsolata"
+    ]
 }

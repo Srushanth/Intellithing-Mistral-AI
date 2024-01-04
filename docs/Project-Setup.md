@@ -22,6 +22,15 @@ rm -f Anaconda3-2023.09-0-Linux-x86_64.sh
 ```
 This will download, install, and remove the Anaconda installer script.
 
+## Model Download
+---
+```
+mkdir model_gguf
+cd model_gguf
+curl -L https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q5_K_M.gguf --output mistral-7b-instruct-v0.1.Q5_K_M.gguf
+cd ../
+```
+
 ## Setup AWS CLI ☁️
 ---
 To interact with AWS services from the command line, we need to install and configure the AWS CLI. We can do that by running the following commands on the server:
@@ -29,6 +38,7 @@ To interact with AWS services from the command line, we need to install and conf
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install
+rm -f awscliv2.zip
 aws configure
 ```
 This will download, unzip, install, and configure the AWS CLI. We will need to provide our AWS access key ID, secret access key, default region, and default output format.
