@@ -2,9 +2,23 @@
     "python.analysis.autoImportCompletions": true,
     "jupyter.interactiveWindow.textEditor.executeSelection": true,
     "cSpell.words": [
+        "arithmatex",
+        "Baride",
         "ctransformers",
+        "fontawesome",
         "gguf",
         "Gradio",
-        "Inconsolata"
+        "Inconsolata",
+        "inlinehilite",
+        "Intellithing",
+        "javascripts",
+        "kaggle",
+        "linenums",
+        "mathjax",
+        "mkdocstrings",
+        "noopener",
+        "pymdownx",
+        "Srushanth",
+        "superfences"
     ]
 }
