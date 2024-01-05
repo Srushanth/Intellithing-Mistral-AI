@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mistral-ai-instruct-deployment
+  labels:
+    app: mistral-ai-instruct-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mistral-ai-instruct-api
+  template:
+    metadata:
+      labels:
+        app: mistral-ai-instruct-api
+    spec:
+      containers:
+        - name: mistral-ai-instruct-api
+          image: 926015110176.dkr.ecr.eu-north-1.amazonaws.com/intellithing:latest
+          ports:
+            - containerPort: 8080
+          resources: 
+            requests: 
+              cpu: "14"
+              memory: "4Gi"
+            limits: 
+              cpu: "16"
+              memory: "24Gi"
