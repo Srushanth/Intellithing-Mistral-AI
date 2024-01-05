@@ -1,6 +1,6 @@
 """
 Author: Srushanth Baride
-Email: Srushanth.Baride"gmail.com
+Email: Srushanth.Baride@gmail.com
 Organization: Intellithing
 Date: 13-Dec-2023
 Description: A brief description of what the code does.
@@ -109,7 +109,7 @@ def generate_bot_response(message: str, chat_history: list):
         if chat_history:
             chat_history[-1][1] = bot_message
         yield "", chat_history
-    # Append the message and bot's response to the chat history 📥
+    # Append the message and bots response to the chat history 📥
     chat_history.append([message, bot_message])
 
 

@@ -5,6 +5,8 @@
         "arithmatex",
         "Baride",
         "ctransformers",
+        "dotenv",
+        "emojize",
         "fontawesome",
         "gguf",
         "Gradio",
